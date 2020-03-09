@@ -6,11 +6,6 @@ function usage {
     echo " -h       Print usage"
 }
 
-if [ -z "$1" ]; then
-    usage
-    exit 1
-fi
-
 while [[ $# -gt 0 ]]
 do
 key="$1"
