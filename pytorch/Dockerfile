@@ -1,38 +1,33 @@
 ############################################################
-# Dockerfile to build Python 3.5 + Tensorflow latest (currently 1.8) image
-# Based on NVIDIA's Ubuntu-based CUDA images
-# See https://www.tensorflow.org/install/install_linux for tensorflow installation instructions
+# Dockerfile for machine learning based on pytorch
 ############################################################
 
-FROM nvidia/cuda:9.0-cudnn7-runtime-ubuntu16.04
-MAINTAINER Ender Tekin <etekin@wisc.edu>
+FROM pytorch/pytorch:latest
+MAINTAINER Ender Tekin <ender.tekin@gmail.com>
 ENV DEBIAN_FRONTEND noninteractive
 
 #Install git, python and some other image libraries that opencv needs, install tensorflow, install opencv, cleanup
 RUN apt-get update && \
-    apt-get install -y -q \
-        apt-utils build-essential git vim libmagickwand-dev \
-        python3.5 python3.5-dev python3-pip && \
+	apt-get -y upgrade && \
+    apt-get install -y -q apt-utils build-essential vim && \
     apt-get autoremove && \
-    apt-get clean && \
-    /usr/bin/env python3 -m pip install jupyter && \
+    apt-get clean
+RUN /usr/bin/env python3 -m pip install jupyter && \
     /usr/bin/env python3 -m pip install numpy && \
+    /usr/bin/env python3 -m pip install scipy && \
+    /usr/bin/env python3 -m pip install pillow && \
     /usr/bin/env python3 -m pip install matplotlib && \
     /usr/bin/env python3 -m pip install tqdm && \
     /usr/bin/env python3 -m pip install requests && \
-    /usr/bin/env python3 -m pip install protobuf && \
-    /usr/bin/env python3 -m pip install Wand && \
-    /usr/bin/env python3 -m pip install tensorflow-gpu && \
+    /usr/bin/env python3 -m pip install torchvision && \
     /usr/bin/env python3 -m pip install jupyter_nbextensions_configurator && \
     /usr/bin/env python3 -m pip install jupyter_contrib_nbextensions && \
     jupyter contrib nbextension install --user && \
     jupyter nbextensions_configurator enable --user
 
 # Set up and launch jupyter notebook
-WORKDIR /root
-COPY jupyter_notebook_config.py .jupyter/
-COPY custom.css .jupyter/custom/
-COPY run-jupyter.sh /root
+WORKDIR /tmp
+COPY scripts /tmp/scripts
 # Expose the ports for jupyter notebook and tensorboard
-EXPOSE 8888 6006
-CMD ["/root/run-jupyter.sh"]
+EXPOSE 8888
+CMD ["/tmp/scripts/launch_jupyter.sh"]

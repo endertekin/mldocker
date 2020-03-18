@@ -1,39 +1,25 @@
 #!/bin/bash
-
 function usage {
-    echo "Usage: $0 [-g] [-h|--help]"
-    echo " -g       Also builds the GPU version"
+    echo "Usage: $0 [-h|--help] <name>"
     echo " -h       Print usage"
+	echo " <name>   which container to build."
 }
 
-while [[ $# -gt 0 ]]
-do
-key="$1"
-case $key in
-    -g|--gpu)
-        GPU=yes
-        shift # past argument
-        ;;
+if [ "$#" -ne 1 ]; then 
+    echo "Error: Must pass exactly one password."
+	exit 1
+fi
+
+NAME=$1
+case $NAME in
     -h|--help)
         usage
         exit 0
 esac
-done
 
-IMAGE_NAME="endertekin/mldocker"
 TAG=`git rev-parse --abbrev-ref HEAD`
 if [ "$TAG" == "master" ]; then
     TAG="latest"
 fi
 echo "Building Dockerfile..."
-docker build -t "$IMAGE_NAME":"$TAG" .
-
-
-if [ "$GPU" = yes ]; then
-    echo "Building Dockerfile-gpu..."
-    docker build -f Dockerfile-gpu -t "$IMAGE_NAME":gpu-"$TAG" .
-fi
-
-
-
-
+docker build -t "endertekin/$NAME":"$TAG" -f ${NAME}/Dockerfile .
