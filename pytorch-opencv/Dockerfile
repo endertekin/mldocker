@@ -20,14 +20,17 @@ RUN mkdir opencv && \
     cd opencv && \
     git clone --depth 1 https://github.com/opencv/opencv.git && \
     git clone --depth 1 https://github.com/opencv/opencv_contrib.git && \
-    mkdir build && \ 
-    cd build && \
- 	cmake -D CMAKE_BUILD_TYPE=RELEASE \
+    mkdir build
+
+WORKDIR /tmp/opencv/build
+RUN	cmake -D CMAKE_BUILD_TYPE=RELEASE \
  	    -D CMAKE_INSTALL_PREFIX=/usr/local \
  	    -D BUILD_EXAMPLES=OFF -D BUILD_opencv_apps=OFF \
  	    -D BUILD_DOCS=OFF -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF \
  	    -D OPENCV_EXTRA_MODULES_PATH=../opencv_contrib/modules \
  		-D BUILD_opencv_python3=ON \
+		-D PYTHON_INCLUDE_DIR=$(python -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())")  \
+		-D PYTHON_LIBRARY=$(python -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR'))") \
  	    ../opencv && \
  	make && \
  	make install && \

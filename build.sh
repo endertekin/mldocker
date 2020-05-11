@@ -6,7 +6,7 @@ function usage {
 }
 
 if [ "$#" -ne 1 ]; then 
-    echo "Error: Must pass exactly one password."
+    echo "Error: Must pass exactly one container name."
 	exit 1
 fi
 

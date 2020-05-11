@@ -32,6 +32,8 @@ RUN mkdir opencv && \
  	    -D BUILD_DOCS=OFF -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF \
  	    -D OPENCV_EXTRA_MODULES_PATH=../opencv_contrib/modules \
  		-D BUILD_opencv_python3=ON \
+		-D PYTHON_INCLUDE_DIR=$(python -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())")  \
+		-D PYTHON_LIBRARY=$(python -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR'))") \
  	    ../opencv && \
  	make && \
  	make install && \
