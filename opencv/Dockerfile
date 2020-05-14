@@ -8,7 +8,7 @@ ENV DEBIAN_FRONTEND noninteractive
 #Install git, python and some other image libraries that opencv needs, install tensorflow, install opencv, cleanup
 RUN apt-get update && \
 	apt-get -y upgrade && \
-    apt-get install -y -q cmake liblog4cxx-dev libboost-dev libboost-program-options-dev \
+    apt-get install -y -q cmake git liblog4cxx-dev libboost-dev libboost-program-options-dev \
   		libboost-filesystem-dev libjpeg-dev libpng-dev \
 		libavcodec-dev libavformat-dev libswscale-dev libavutil-dev \
 		tesseract-ocr libtesseract-dev && \
