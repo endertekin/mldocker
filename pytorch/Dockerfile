@@ -13,12 +13,15 @@ RUN apt-get update && \
     apt-get autoremove && \
     apt-get clean
 RUN /usr/bin/env python3 -m pip install jupyter && \
+	/usr/bin/env python3 -m pip install ipywidgets && \
     /usr/bin/env python3 -m pip install numpy && \
     /usr/bin/env python3 -m pip install scipy && \
+    /usr/bin/env python3 -m pip install scikit-learn && \
+    /usr/bin/env python3 -m pip install snorkel && \
+    /usr/bin/env python3 -m pip install pandas && \
     /usr/bin/env python3 -m pip install pillow && \
     /usr/bin/env python3 -m pip install matplotlib && \
     /usr/bin/env python3 -m pip install tqdm && \
-    /usr/bin/env python3 -m pip install ipywidgets && \
     /usr/bin/env python3 -m pip install torchvision && \
     /usr/bin/env python3 -m pip install pycocotools-fix && \
     /usr/bin/env python3 -m pip install jupyter_nbextensions_configurator && \
