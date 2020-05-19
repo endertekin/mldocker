@@ -40,5 +40,5 @@ RUN	cmake -D CMAKE_BUILD_TYPE=RELEASE \
 WORKDIR /tmp
 COPY scripts /tmp/scripts
 # Expose the ports for jupyter notebook and tensorboard
-EXPOSE 8888
+EXPOSE 8888 6006
 CMD ["/tmp/scripts/launch_jupyter.sh"]

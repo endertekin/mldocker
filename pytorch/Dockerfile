@@ -23,6 +23,7 @@ RUN /usr/bin/env python3 -m pip install jupyter && \
     /usr/bin/env python3 -m pip install matplotlib && \
     /usr/bin/env python3 -m pip install tqdm && \
     /usr/bin/env python3 -m pip install torchvision && \
+    /usr/bin/env python3 -m pip install tensorboard && \
     /usr/bin/env python3 -m pip install pycocotools-fix && \
     /usr/bin/env python3 -m pip install jupyter_nbextensions_configurator && \
     /usr/bin/env python3 -m pip install jupyter_contrib_nbextensions && \
@@ -33,5 +34,5 @@ RUN /usr/bin/env python3 -m pip install jupyter && \
 WORKDIR /tmp
 COPY scripts /tmp/scripts
 # Expose the ports for jupyter notebook and tensorboard
-EXPOSE 8888
+EXPOSE 8888 6006
 CMD ["/tmp/scripts/launch_jupyter.sh"]
