@@ -22,13 +22,23 @@ RUN /usr/bin/env python3 -m pip install jupyter && \
     /usr/bin/env python3 -m pip install pillow && \
     /usr/bin/env python3 -m pip install matplotlib && \
     /usr/bin/env python3 -m pip install tqdm && \
+    /usr/bin/env python3 -m pip install --upgrade cython && \
     /usr/bin/env python3 -m pip install torchvision && \
     /usr/bin/env python3 -m pip install tensorboard && \
-    /usr/bin/env python3 -m pip install pycocotools-fix && \
+#    /usr/bin/env python3 -m pip install pycocotools && \
     /usr/bin/env python3 -m pip install jupyter_nbextensions_configurator && \
     /usr/bin/env python3 -m pip install jupyter_contrib_nbextensions && \
     jupyter contrib nbextension install --user && \
     jupyter nbextensions_configurator enable --user
+
+	#Build pycococtools
+WORKDIR /tmp
+RUN mkdir /tmp/coco && \
+	cd /tmp/coco && \
+	git clone --depth 1 https://github.com/cocodataset/cocoapi.git && \
+	cd cocoapi/PythonAPI/ && \
+	/usr/bin/env python3 setup.py install
+	
 
 # Set up and launch jupyter notebook
 WORKDIR /tmp
