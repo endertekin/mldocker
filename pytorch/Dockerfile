@@ -9,7 +9,7 @@ ENV DEBIAN_FRONTEND noninteractive
 #Install git, python and some other image libraries that opencv needs, install tensorflow, install opencv, cleanup
 RUN apt-get update && \
 	apt-get -y upgrade && \
-    apt-get install -y -q apt-utils build-essential vim && \
+    apt-get install -y -q apt-utils build-essential vim git && \
     apt-get autoremove && \
     apt-get clean
 RUN /usr/bin/env python3 -m pip install jupyter && \
