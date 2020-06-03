@@ -17,6 +17,7 @@ RUN /usr/bin/env python3 -m pip install jupyter && \
     /usr/bin/env python3 -m pip install numpy && \
     /usr/bin/env python3 -m pip install scipy && \
     /usr/bin/env python3 -m pip install scikit-learn && \
+    /usr/bin/env python3 -m pip install scikit-image && \
     /usr/bin/env python3 -m pip install snorkel && \
     /usr/bin/env python3 -m pip install pandas && \
     /usr/bin/env python3 -m pip install pillow && \
