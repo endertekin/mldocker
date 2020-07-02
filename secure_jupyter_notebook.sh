@@ -19,6 +19,12 @@ case $PWD in
 esac
 
 RUNTIME_OPTS=(-d --init)
+RUNTIME_OPTS+=(--rm)
 RUNTIME_OPTS+=(-v $(pwd):/tmp/pwd)
 RUNTIME_OPTS+=(-w /tmp/pwd)
-docker run ${RUNTIME_OPTS[@]} --name passgen endertekin/jupyter /tmp/scripts/generate_password.py $PWD
+docker run ${RUNTIME_OPTS[@]} endertekin/jupyter /tmp/scripts/generate_password.py $PWD > pwd.txt
+RUNTIME_OPTS=(-it --init)
+RUNTIME_OPTS+=(--rm)
+RUNTIME_OPTS+=(-v $(pwd):/tmp/pwd)
+RUNTIME_OPTS+=(-w /tmp/pwd)
+docker run ${RUNTIME_OPTS[@]} endertekin/jupyter openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout key.pem -out cert.pem
